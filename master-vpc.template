@@ -133,7 +133,7 @@
                 },
                 "us-east-1"
             ]
-        },
+        }
     },
     "Resources": {
         "VPC": {
