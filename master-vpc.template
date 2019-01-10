@@ -24,22 +24,11 @@
                         "PublicSubnet3CIDR",
                         "PublicSubnet4CIDR"
                     ]
-                },
-                {
-                    "Label": {
-                        "default": "Amazon EC2 Configuration"
-                    },
-                    "Parameters": [
-                        "KeyPairName"
-                    ]
                 }
             ],
             "ParameterLabels": {
                 "AvailabilityZones": {
                     "default": "Availability Zones"
-                },
-                "KeyPairName": {
-                    "default": "Key pair name"
                 },
                 "NumberOfAZs": {
                     "default": "Number of Availability Zones"
@@ -66,19 +55,6 @@
         "AvailabilityZones": {
             "Description": "List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved.",
             "Type": "List<AWS::EC2::AvailabilityZone::Name>"
-        },
-        "CreateAdditionalPrivateSubnets": {
-            "AllowedValues": [
-                "true",
-                "false"
-            ],
-            "Default": "false",
-            "Description": "Set to true to create a network ACL protected subnet in each Availability Zone. If false, the CIDR parameters for those subnets will be ignored. If true, it also requires that the 'Create private subnets' parameter is also true to have any effect.",
-            "Type": "String"
-        },
-        "KeyPairName": {
-            "Description": "Public/private key pairs allow you to securely connect to your NAT instance after it launches. This is used only if the region does not support NAT gateways.",
-            "Type": "AWS::EC2::KeyPair::KeyName"
         },
         "NumberOfAZs": {
             "AllowedValues": [
@@ -126,117 +102,6 @@
             "Type": "String"
         }
     },
-    "Mappings": {
-        "AWSAMIRegionMap": {
-            "AMI": {
-                "AWSNATHVM": "amzn-ami-vpc-nat-hvm-2016.09.1.20170119-x86_64-ebs"
-            },
-            "ap-northeast-1": {
-                "AWSNATHVM": "ami-78d6af1f"
-            },
-            "ap-northeast-2": {
-                "AWSNATHVM": "ami-7ec31210"
-            },
-            "ap-south-1": {
-                "AWSNATHVM": "ami-48dcaa27"
-            },
-            "ap-southeast-1": {
-                "AWSNATHVM": "ami-a0903ac3"
-            },
-            "ap-southeast-2": {
-                "AWSNATHVM": "ami-1e47407d"
-            },
-            "ca-central-1": {
-                "AWSNATHVM": "ami-cdf24fa9"
-            },
-            "eu-central-1": {
-                "AWSNATHVM": "ami-7d0ec112"
-            },
-            "eu-west-1": {
-                "AWSNATHVM": "ami-47ecb121"
-            },
-            "eu-west-2": {
-                "AWSNATHVM": "ami-7c959f18"
-            },
-            "sa-east-1": {
-                "AWSNATHVM": "ami-f80b6e94"
-            },
-            "us-east-1": {
-                "AWSNATHVM": "ami-dd3dd7cb"
-            },
-            "us-east-2": {
-                "AWSNATHVM": "ami-564b6e33"
-            },
-            "us-west-1": {
-                "AWSNATHVM": "ami-7d54061d"
-            },
-            "us-west-2": {
-                "AWSNATHVM": "ami-3b6fd05b"
-            }
-        },
-        "AWSInfoRegionMap": {
-            "ap-northeast-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-northeast-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-south-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-southeast-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ap-southeast-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "ca-central-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "eu-central-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "eu-west-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "eu-west-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "sa-east-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-east-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-east-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-gov-west-1": {
-                "Partition": "aws-us-gov",
-                "QuickStartS3URL": "https://s3-us-gov-west-1.amazonaws.com"
-            },
-            "us-west-1": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            },
-            "us-west-2": {
-                "Partition": "aws",
-                "QuickStartS3URL": "https://s3.amazonaws.com"
-            }
-        }
-    },
     "Conditions": {
         "3AZCondition": {
             "Fn::Or": [
@@ -271,31 +136,6 @@
         },
     },
     "Resources": {
-        "DHCPOptions": {
-            "Type": "AWS::EC2::DHCPOptions",
-            "Properties": {
-                "DomainName": {
-                    "Fn::If": [
-                        "NVirginiaRegionCondition",
-                        "ec2.internal",
-                        {
-                            "Fn::Join": [
-                                "",
-                                [
-                                    {
-                                        "Ref": "AWS::Region"
-                                    },
-                                    ".compute.internal"
-                                ]
-                            ]
-                        }
-                    ]
-                },
-                "DomainNameServers": [
-                    "AmazonProvidedDNS"
-                ]
-            }
-        },
         "VPC": {
             "Type": "AWS::EC2::VPC",
             "Properties": {
