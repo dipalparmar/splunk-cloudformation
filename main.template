@@ -16,6 +16,7 @@
         },
         "InstanceType": {
             "AllowedValues": [
+                "t2.micro",
                 "c4.large",
                 "c4.2xlarge",
                 "c4.4xlarge",
@@ -24,7 +25,7 @@
                 "r4.8xlarge"
             ],
             "ConstraintDescription": "must be a valid EC2 instance type.",
-            "Default": "c4.large",
+            "Default": "t2.micro",
             "Type": "String"
         },
         "KeyName": {
