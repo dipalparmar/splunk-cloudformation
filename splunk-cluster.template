@@ -319,7 +319,7 @@
                 "SPLUNKENTHVM": "ami-a83a66c8"
             },
             "us-west-2": {
-                "SPLUNKENTHVM": "ami-93f673f3"
+                "SPLUNKENTHVM": "ami-076e276d85f524150"
             }
         },
         "AWSInfoRegionMap": {
@@ -674,7 +674,7 @@
                         "SPLUNKENTHVM"
                     ]
                 },
-                "InstanceType": "c4.large",
+                "InstanceType": "t2.micro",
                 "KeyName": {
                     "Ref": "KeyName"
                 },
