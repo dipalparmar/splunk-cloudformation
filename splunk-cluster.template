@@ -21,7 +21,7 @@
                 "r4.8xlarge"
             ],
             "ConstraintDescription": "must be a valid EC2 instance type.",
-            "Default": "c4.large",
+            "Default": "t2.micro",
             "Type": "String"
         },
         "KeyName": {
@@ -159,15 +159,6 @@
                         "SHCEnabled",
                         "SplunkReplicationFactor"
                     ]
-                },
-                {
-                    "Label": {
-                        "default": "Quickstart Settings"
-                    },
-                    "Parameters": [
-                        "QSS3BucketName",
-                        "QSS3KeyPrefix"
-                    ]
                 }
             ],
             "ParameterLabels": {
@@ -185,12 +176,6 @@
                 },
                 "PublicSubnet2ID": {
                     "default": "Public Subnet 2 ID"
-                },
-                "QSS3BucketName": {
-                    "default": "QuickStart S3 Bucket Name"
-                },
-                "QSS3KeyPrefix": {
-                    "default": "QuickStart S3 Key Prefix"
                 },
                 "SHCEnabled": {
                     "default": "Enable Search Head Cluster?"
