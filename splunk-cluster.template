@@ -12,6 +12,7 @@
         },
         "InstanceType": {
             "AllowedValues": [
+                "t2.micro",
                 "c4.large",
                 "c4.2xlarge",
                 "c4.4xlarge",
